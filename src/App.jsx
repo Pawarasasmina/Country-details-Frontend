@@ -4,7 +4,8 @@ import CountryDetail from './pages/CountryDetail'
 import Login from './pages/Login'
 import { useEffect } from 'react'
 import Header from './components/Header'
-import './app.css'
+import './App.css'
+
 
 function App() {
   const navigate = useNavigate()
