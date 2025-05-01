@@ -13,6 +13,7 @@ export const UserProvider = ({ children }) => {
     localStorage.removeItem('user');
     localStorage.removeItem('sessionTimestamp');
     return null;
+    
   });
 
   const login = (username) => {

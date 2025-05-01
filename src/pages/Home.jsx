@@ -10,6 +10,7 @@ import {
 } from '../services/api'
 
 function Home() {
+  
   const [countries, setCountries] = useState([])
   const [filteredCountries, setFilteredCountries] = useState([])
   const [searchQuery, setSearchQuery] = useState('')

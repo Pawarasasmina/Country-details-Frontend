@@ -8,6 +8,7 @@ function SearchBar({ onSearch }) {
         placeholder="Search for a country..."
         className="w-full p-3 border border-gray-300 rounded-lg shadow-sm"
         onChange={(e) => onSearch(e.target.value)}
+        
       />
     </div>
   )
