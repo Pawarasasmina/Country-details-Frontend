@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { getCountryByCode } from '../services/api';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { motion } from 'framer-motion';
-import Clock from 'react-clock';
 import 'react-clock/dist/Clock.css';
 import 'leaflet/dist/leaflet.css';
 
@@ -45,16 +44,35 @@ function CountryDetail() {
           hour: 'numeric',
           minute: 'numeric',
           second: 'numeric',
+          hour12: true
         });
         const parts = formatter.formatToParts(now);
         const hours = parts.find((part) => part.type === 'hour')?.value;
         const minutes = parts.find((part) => part.type === 'minute')?.value;
         const seconds = parts.find((part) => part.type === 'second')?.value;
+        const dayPeriod = parts.find((part) => part.type === 'dayPeriod')?.value;
         setCountryTime(new Date(now.setHours(hours, minutes, seconds)));
       }
     }, 1000);
     return () => clearInterval(interval);
   }, [country]);
+
+  const formatTimeDigital = (date) => {
+    return {
+      time: new Intl.DateTimeFormat('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      }).format(date),
+      date: new Intl.DateTimeFormat('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }).format(date)
+    };
+  };
 
   const handleFavoriteToggle = () => {
     const username = localStorage.getItem('user');
@@ -157,15 +175,22 @@ function CountryDetail() {
               </Popup>
             </Marker>
           </MapContainer>
-          <h2 className="text-2xl font-semibold mb-4">Current Times</h2>
-          <div className="flex justify-around items-center">
-            <div className="text-center">
-              <h3 className="text-lg font-medium">Local Time</h3>
-              <Clock value={localTime} />
-            </div>
-            <div className="text-center">
-              <h3 className="text-lg font-medium">{country.name.common} Time</h3>
-              <Clock value={countryTime} />
+          <h2 className="text-2xl font-semibold mb-4">Current Time</h2>
+          <div className="flex justify-center items-center">
+            <div className="text-center p-6 bg-gradient-to-b from-gray-100 to-gray-200 rounded-lg shadow-lg w-full border border-gray-300">
+              <h3 className="text-xl font-medium mb-3 text-gray-700">{country.name.common} Time</h3>
+              <div className="flex flex-col items-center justify-center">
+                <div className="text-5xl font-mono bg-gray-800 text-white px-6 py-4 rounded-lg w-full mb-2 font-bold tracking-wider shadow-inner">
+                  {formatTimeDigital(countryTime).time}
+                  <span className="inline-block ml-2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                </div>
+                <div className="text-gray-600 text-lg mt-2 font-semibold">
+                  {formatTimeDigital(countryTime).date}
+                </div>
+                <div className="mt-2 text-sm text-gray-500">
+                  Timezone: {country.timezones[0]}
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
