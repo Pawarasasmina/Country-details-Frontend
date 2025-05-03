@@ -19,3 +19,8 @@ export const getCountryByCode = async (code) => {
   const res = await fetch(`${BASE_URL}/alpha/${code}`)
   return res.json()
 }
+
+export const getCountriesByLanguage = async (language) => {
+  const res = await fetch(`${BASE_URL}/lang/${language}`)
+  return res.json()
+}
