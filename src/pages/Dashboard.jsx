@@ -630,7 +630,12 @@ function Dashboard() {
               <p className="text-gray-600 mt-2">Preview of randomly selected countries from our database</p>
             </div>
             <Link to="/home" className="text-blue-600 hover:text-blue-800 flex items-center">
-              <span className="font-medium">Sign in to explore all {countries.length} countries</span>
+              <span className="font-medium">
+                <span className="hidden md:inline">explore all </span>
+                <span>{countries.length}</span>
+                <span className="hidden md:inline"> countries</span>
+                <span className="md:hidden"> countries</span>
+              </span>
               <FaArrowRight className="ml-2" />
             </Link>
           </div>

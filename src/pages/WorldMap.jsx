@@ -119,7 +119,8 @@ function WorldMap() {
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white shadow-md transition-all duration-300 border border-blue-400/30"
               >
                 <FaArrowLeft className="text-blue-200" />
-                <span className="text-sm md:text-base font-medium">Back to Home</span>
+                <span className="hidden md:inline text-sm md:text-base font-medium">Back to Home</span>
+                <span className="md:hidden text-sm font-medium">Back</span>
               </motion.button>
             </Link>
           </div>
